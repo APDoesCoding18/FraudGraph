@@ -12,3 +12,7 @@ aiokafka>=0.10.0
 redis>=5.0.0
 neo4j>=5.17.0
 openai>=1.14.0
+passlib[bcrypt]>=1.7.4
+bcrypt<4.0.0
+pyjwt>=2.8.0
+python-multipart>=0.0.9

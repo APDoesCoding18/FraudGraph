@@ -2,6 +2,7 @@ from neo4j import AsyncDriver
 from uuid import UUID
 from datetime import datetime
 from app.events.schemas import TransactionEvent
+from app.graph.client import neo4j_client
 
 class GraphProjection:
     def __init__(self, driver: AsyncDriver):

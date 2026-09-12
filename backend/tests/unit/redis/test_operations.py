@@ -13,7 +13,7 @@ def mock_redis_client():
     
     # Mock pipeline
     pipeline = AsyncMock()
-    client.pipeline.return_value = pipeline
+    client.pipeline = MagicMock(return_value=pipeline)
     return client
 
 @pytest.fixture

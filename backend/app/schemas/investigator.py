@@ -7,7 +7,7 @@ class InvestigatorBase(BaseModel):
     name: str
 
 class InvestigatorCreate(InvestigatorBase):
-    pass
+    password: str
 
 class InvestigatorResponse(InvestigatorBase):
     id: UUID

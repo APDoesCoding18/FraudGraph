@@ -24,3 +24,10 @@ async def async_client() -> AsyncGenerator[AsyncClient, None]:
         transport=ASGITransport(app=app), base_url="http://test"
     ) as ac:
         yield ac
+
+@pytest.fixture
+async def db_session():
+    from app.database.postgres import AsyncSessionLocal
+    async with AsyncSessionLocal() as session:
+        yield session
+

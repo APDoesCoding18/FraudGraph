@@ -4,7 +4,7 @@ from uuid import uuid4
 from datetime import datetime
 from app.schemas.transaction import TransactionCreate
 from app.schemas.common import PaginationParams
-from app.schemas.alert import AlertStatusUpdate
+from app.schemas.alert import AlertUpdate
 from app.common.enums import AlertStatus
 
 def test_valid_transaction_create():
@@ -41,4 +41,4 @@ def test_valid_pagination():
 
 def test_invalid_enum_status():
     with pytest.raises(ValidationError):
-        AlertStatusUpdate(status="UNKNOWN_STATUS")
+        AlertUpdate(status="UNKNOWN_STATUS")

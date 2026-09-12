@@ -13,9 +13,10 @@ def mock_driver():
     session = AsyncMock()
     
     # handle async with self.driver.session() as session:
-    session_ctx = AsyncMock()
-    session_ctx.__aenter__.return_value = session
-    driver.session.return_value = session_ctx
+    session_ctx = MagicMock()
+    session_ctx.__aenter__ = AsyncMock(return_value=session)
+    session_ctx.__aexit__ = AsyncMock(return_value=None)
+    driver.session = MagicMock(return_value=session_ctx)
     
     return driver
 

@@ -32,8 +32,10 @@ async def test_fraud_engine_high_value_only(transaction_event):
 
     db_mock = AsyncMock()
     # Mocking dormant and new beneficiary to be false
-    db_mock.execute.return_value.scalar_one_or_none.return_value = datetime.now(timezone.utc)
-    db_mock.execute.return_value.scalar_one.return_value = 1
+    result_mock = MagicMock()
+    result_mock.scalar_one_or_none.return_value = datetime.now(timezone.utc)
+    result_mock.scalar_one.return_value = 1
+    db_mock.execute.return_value = result_mock
 
     results, score, level = await fraud_engine.evaluate_transaction(
         transaction_event,
@@ -65,8 +67,10 @@ async def test_fraud_engine_max_score_capping(transaction_event):
 
     db_mock = AsyncMock()
     # Mocking dormant and new beneficiary to be false for simplicity
-    db_mock.execute.return_value.scalar_one_or_none.return_value = datetime.now(timezone.utc)
-    db_mock.execute.return_value.scalar_one.return_value = 1
+    result_mock = MagicMock()
+    result_mock.scalar_one_or_none.return_value = datetime.now(timezone.utc)
+    result_mock.scalar_one.return_value = 1
+    db_mock.execute.return_value = result_mock
 
     results, score, level = await fraud_engine.evaluate_transaction(
         transaction_event,

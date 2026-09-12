@@ -36,9 +36,13 @@ async def test_idempotency_handler_processes_new(transaction_event):
     mock_session = AsyncMock()
     
     with patch("app.events.handlers.is_event_processed", new_callable=AsyncMock) as mock_is_processed, \
-         patch("app.events.handlers.mark_event_processing", new_callable=AsyncMock) as mock_mark:
+         patch("app.events.handlers.mark_event_processing", new_callable=AsyncMock) as mock_mark, \
+         patch("app.events.handlers.redis_ops.record_transaction", new_callable=AsyncMock), \
+         patch("app.events.handlers.fraud_engine.evaluate_transaction", new_callable=AsyncMock) as mock_fraud, \
+         patch("app.events.handlers.neo4j_projection", new_callable=AsyncMock):
          
         mock_is_processed.return_value = False
+        mock_fraud.return_value = ([], 0, TransactionStatus.PROCESSED) # Mock low score to skip alert
         
         await handle_transaction_event(transaction_event, mock_session)
         

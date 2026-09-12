@@ -5,10 +5,11 @@ from typing import Optional
 from app.models.investigator import Investigator
 from app.schemas.investigator import InvestigatorCreate
 
-async def create_investigator(db: AsyncSession, investigator_in: InvestigatorCreate) -> Investigator:
+async def create_investigator(db: AsyncSession, investigator_in: InvestigatorCreate, hashed_password: str) -> Investigator:
     db_obj = Investigator(
         email=investigator_in.email,
-        name=investigator_in.name
+        name=investigator_in.name,
+        hashed_password=hashed_password
     )
     db.add(db_obj)
     await db.flush()
